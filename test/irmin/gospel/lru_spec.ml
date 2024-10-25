@@ -1,1 +1,1 @@
-include Irmin.Backend.Lru.Make (String)
+include Irmin.Backend.Lru.Make (Char)

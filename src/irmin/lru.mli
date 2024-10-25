@@ -19,23 +19,25 @@ module Make (H : Hashtbl.HashedType) : sig
   type 'a t
   (*@ mutable model size : integer *)
 
+  type h_t = H.t
+
   val create : int -> 'a t
   (*@ t = create i
       ensures t.size = 0 *)
 
-  val add : 'a t -> H.t -> 'a -> unit
+  val add : 'a t -> h_t -> 'a -> unit
   (*@ add t h a
       modifies t.size
       ensures t.size = (old t.size) + 1 *)
 
-  val find : 'a t -> H.t -> 'a
-  val mem : 'a t -> H.t -> bool
+  val find : 'a t -> h_t -> 'a
+  val mem : 'a t -> h_t -> bool
   val clear : 'a t -> unit
   (*@ clear t
       modifies t.size
       ensures t.size = 0 *)
 
-  val iter : 'a t -> (H.t -> 'a -> unit) -> unit
+  val iter : 'a t -> (h_t -> 'a -> unit) -> unit
   val drop : 'a t -> 'a option
   (*@ o = drop t
       modifies t.size

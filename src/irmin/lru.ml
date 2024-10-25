@@ -17,6 +17,8 @@
 (* Extracted from https://github.com/pqwy/lru *)
 
 module Make (H : Hashtbl.HashedType) = struct
+  type h_t = H.t
+
   module HT = Hashtbl.Make (H)
 
   module Q = struct

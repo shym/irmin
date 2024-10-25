@@ -7,7 +7,7 @@
    %{targets}
    (run
     awk
-    "/^module/,/^end/ { if ($0 !~ /^module/ && $0 != \"end\") print }"
+    "/^module/,/^end/ { sub(/ = H.t$/, \"\"); if ($0 !~ /^module/ && $0 != \"end\") print }"
     %{sig}))))
 
 (library
