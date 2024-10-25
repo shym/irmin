@@ -1,0 +1,27 @@
+(rule
+ (deps
+  (:sig %{project_root}/src/irmin/lru.mli))
+ (targets lru_spec.mli)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run
+    awk
+    "/^module/,/^end/ { if ($0 !~ /^module/ && $0 != \"end\") print }"
+    %{sig}))))
+
+(library
+ (package irmin-test)
+ (name lru_spec)
+ (modules lru_spec)
+ (libraries irmin))
+
+(rule
+ (alias runtest)
+ (mode promote)
+ (action
+  (with-stdout-to
+   dune.inc
+   (run ortac dune qcheck-stm lru_spec.mli --package=irmin-test))))
+
+(include dune.inc)
